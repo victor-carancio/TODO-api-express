@@ -11,16 +11,16 @@ const express = require("express");
 const app = express();
 
 //routers
-const taskRouter = require("./routes/taskRoute.js");
-const authRouter = require("./routes/authRoute");
+const taskRouter = require("./src/routes/taskRoute.js");
+const authRouter = require("./src/routes/authRoute");
 
 //connect DB
-const connectDB = require("./db/connection.js");
-const authenticateUser = require("./middleware/authentication");
+const connectDB = require("./src/db/connection.js");
+const authenticateUser = require("./src/middleware/authentication");
 
 // error handler
-const notFoundMiddleware = require("./middleware/not-found.js");
-const errorMiddleware = require("./middleware/error-handler");
+const notFoundMiddleware = require("./src/middleware/not-found.js");
+const errorMiddleware = require("./src/middleware/error-handler");
 
 //middlewares
 
