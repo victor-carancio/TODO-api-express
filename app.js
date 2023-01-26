@@ -38,6 +38,10 @@ app.use(xss());
 
 //routers
 
+app.get("/", (req, res) => {
+  res.send("Hello world");
+});
+
 app.use("/api/v1/auth", authRouter);
 app.use("/api/v1/task", authenticateUser, taskRouter);
 
