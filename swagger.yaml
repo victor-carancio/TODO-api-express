@@ -1,0 +1,233 @@
+openapi: 3.0.0
+info:
+  title: TODO API
+  contact: {}
+  version: "1.0"
+servers:
+  - url: https://todo-api-express.onrender.com/api/v1
+    variables: {}
+paths:
+  /task:
+    get:
+      tags:
+        - Tasks
+      summary: Get all tasks
+      operationId: Getalltasks
+      parameters: []
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+      security:
+        - bearer: []
+    post:
+      tags:
+        - Tasks
+      summary: Create task
+      operationId: Createtask
+      parameters: []
+      requestBody:
+        description: ""
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "#/components/schemas/CreatetaskRequest"
+                - example:
+                    task: json web token
+            example:
+              task: json web token
+        required: true
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+      security:
+        - bearer: []
+  /task/{id}:
+    parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+        description: The task ID
+    get:
+      tags:
+        - Tasks
+      summary: Get single task
+      operationId: Getsingletask
+      parameters: []
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+      security:
+        - bearer: []
+    patch:
+      tags:
+        - Tasks
+      summary: Update task
+      operationId: Updatetask
+      parameters: []
+      requestBody:
+        description: ""
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "#/components/schemas/UpdatetaskRequest"
+                - example:
+                    task: estudiar sass
+                    status: pending
+            example:
+              task: estudiar sass
+              status: pending
+        required: true
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+      security:
+        - bearer: []
+    delete:
+      tags:
+        - Tasks
+      summary: Delete task
+      operationId: Deletetask
+      parameters: []
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+      security:
+        - bearer: []
+  /auth/register:
+    post:
+      tags:
+        - Auth
+      summary: Register user
+      operationId: Registeruser
+      parameters: []
+      requestBody:
+        description: ""
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "#/components/schemas/RegisteruserRequest"
+                - example:
+                    name: john
+                    email: john@gmail.com
+                    password: jiojiojio
+            example:
+              name: john
+              email: john@gmail.com
+              password: jiojiojio
+        required: true
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+      security: []
+  /auth/login:
+    post:
+      tags:
+        - Auth
+      summary: Login user
+      operationId: Loginuser
+      parameters: []
+      requestBody:
+        description: ""
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "#/components/schemas/LoginuserRequest"
+                - example:
+                    email: jio@gmail.com
+                    password: jiojiojio
+            example:
+              email: jio@gmail.com
+              password: jiojiojio
+        required: true
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+      security: []
+components:
+  schemas:
+    CreatetaskRequest:
+      title: CreatetaskRequest
+      required:
+        - task
+      type: object
+      properties:
+        task:
+          type: string
+      example:
+        task: json web token
+    UpdatetaskRequest:
+      title: UpdatetaskRequest
+      required:
+        - task
+        - status
+      type: object
+      properties:
+        task:
+          type: string
+        status:
+          type: string
+      example:
+        task: estudiar sass
+        status: pending
+    RegisteruserRequest:
+      title: RegisteruserRequest
+      required:
+        - name
+        - email
+        - password
+      type: object
+      properties:
+        name:
+          type: string
+        email:
+          type: string
+        password:
+          type: string
+      example:
+        name: john
+        email: john@gmail.com
+        password: jiojiojio
+    LoginuserRequest:
+      title: LoginuserRequest
+      required:
+        - email
+        - password
+      type: object
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+      example:
+        email: jio@gmail.com
+        password: jiojiojio
+  securitySchemes:
+    bearer:
+      type: http
+      scheme: bearer
+security: []
+tags:
+  - name: Auth
+    description: ""
+  - name: Tasks
+    description: ""
