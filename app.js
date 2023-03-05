@@ -56,14 +56,15 @@ app.use(notFoundMiddleware);
 app.use(errorMiddleware);
 
 const port = process.env.PORT || 5000;
+const server = () => app.listen(port, console.log(`listening on port ${port}`));
 
 const start = async () => {
   try {
-    await connectDB(process.env.MONGO_URI);
-    app.listen(port, console.log(`listening on port ${port}`));
+    await connectDB();
+    server();
   } catch (error) {
     console.log(error);
   }
 };
 
-start();
+module.exports = { app, start, server };

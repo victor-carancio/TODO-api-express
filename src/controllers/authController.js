@@ -4,9 +4,14 @@ const { BadRequestError, UnauthenticatedError } = require("../errors");
 const jwt = require("jsonwebtoken");
 
 const register = async (req, res) => {
-  //   if (!name || !email || !password) {
-  //     throw new BadRequestError("Please provide name, email and password");
-  //   }
+  const { name, email, password } = req.body;
+  if (!name || !email || !password) {
+    throw new BadRequestError("Please provide name, email and password");
+  }
+
+  if (password.length < 6) {
+    throw new BadRequestError("Min length for password is six ");
+  }
 
   const user = await User.create({ ...req.body });
   const token = user.createJWT();
@@ -30,8 +35,11 @@ const login = async (req, res) => {
   if (!isPasswordCorrect) {
     throw new UnauthenticatedError("Invalid Credentials");
   }
+
   const token = user.createJWT();
-  res.status(StatusCodes.OK).json({ user: { name: user.name }, token });
+  res
+    .status(StatusCodes.OK)
+    .json({ user: { name: user.name, id: user._id }, token });
 };
 
 module.exports = {

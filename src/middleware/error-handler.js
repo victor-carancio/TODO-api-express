@@ -14,7 +14,9 @@ const errorHandlerMiddleware = (err, req, res, next) => {
   }
 
   if (err.name === "ValidationError") {
-    customError.msg = Object.values(err.errors).map((item) => item.message.join(","));
+    customError.msg = Object.values(err.errors).map((item) =>
+      item.message.join(",")
+    );
     customError.statusCode = 400;
   }
 
@@ -22,6 +24,7 @@ const errorHandlerMiddleware = (err, req, res, next) => {
     customError.msg = `No item found with id: ${err.value}`;
     customError.statusCode = 400;
   }
+
   return res.status(customError.statusCode).json({ msg: customError.msg });
   // return res.status(customError.statusCode).json({ err });
 };

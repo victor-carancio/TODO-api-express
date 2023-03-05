@@ -3,7 +3,9 @@ const { StatusCodes } = require("http-status-codes");
 const { BadRequestError, NotFoundError } = require("../errors");
 
 const getAllTasks = async (req, res, next) => {
-  const task = await Task.find({ createdBy: req.user.userId }).sort("createdAt");
+  const task = await Task.find({ createdBy: req.user.userId }).sort(
+    "createdAt"
+  );
   res.status(StatusCodes.OK).json({ task, count: task.length });
 };
 
@@ -22,6 +24,7 @@ const getTask = async (req, res) => {
 
 const createTask = async (req, res, next) => {
   req.body.createdBy = req.user.userId;
+
   const task = await Task.create(req.body);
   res.status(StatusCodes.CREATED).json({ task });
 };
@@ -37,10 +40,14 @@ const updateTask = async (req, res, next) => {
     throw new BadRequestError("Task field cannot be empty");
   }
 
-  const taskUpdate = await Task.findByIdAndUpdate({ _id: taskId, createdBy: userId }, req.body, {
-    new: true,
-    runValidators: true,
-  });
+  const taskUpdate = await Task.findByIdAndUpdate(
+    { _id: taskId, createdBy: userId },
+    req.body,
+    {
+      new: true,
+      runValidators: true,
+    }
+  );
 
   if (!taskUpdate) {
     throw new NotFoundError(`No task with id ${taskId}`);
