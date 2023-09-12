@@ -43,10 +43,10 @@ app.use(xss());
 
 //routers
 
-app.get("/", (req, res) => {
-  res.send("<h1>TODO Api</h1><a href='/api-docs'>Documentation</a>");
-});
-app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(swaggerDocument));
+// app.get("/", (req, res) => {
+//   res.send("<h1>TODO Api</h1><a href='/api-docs'>Documentation</a>");
+// });
+app.use("/", swaggerUI.serve, swaggerUI.setup(swaggerDocument));
 
 app.use("/api/v1/auth", authRouter);
 app.use("/api/v1/task", authenticateUser, taskRouter);
